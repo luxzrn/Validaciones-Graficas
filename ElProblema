@@ -1,0 +1,174 @@
+/*PREGUNTA 3 - CASO AEl INEI ha considerado que es necesario desarrollar un módulo para graficar los resultados delas principales estadísticas obtenidas al momento de registrar a los pacientes infectados por elCOVID-19, por lo cual se le solicita desarrollar un programa en C++, en entorno consola, quegenere un gráfico según el formato mostrado en el ejemplo.Recuerde que el programa deberá realizar todas las validaciones necesarias.
+Ejemplo
+Ingrese el número de pacientes infectados en Lima: 34
+Ingrese el número de pacientes infectados en Callao: 24
+Ingrese el número de pacientes infectados en Provincia: 42
+Ingrese la cantidad de pacientes entre 1 y 30 años: 10
+Ingrese la cantidad de pacientes entre 31 y 50 años: 40
+Ingrese la cantidad de pacientes entre 51 y 70 años: 30
+Ingrese la cantidad de pacientes mayores a 70 años: 20
+Ingrese el tipo de gráfico que desea ver:Gráfico por provincia (P) o por edad (E): P
+LOCACIONP
+ROVINCIA * * * *
+LIMA * * *
+CALLAO * *
+TOTAL * * * * * * * * * *
+Nota: Tenga en cuenta que cada * representa a 10 personas y se imprime de maneradescendente, el total siempre se imprime al finañ*/
+.
+.
+.
+.
+
+#include<iostream>
+#include<conio.h>
+#include<stdlib.h>
+#include<string.h>
+
+using namespace std;
+
+int ingresarDatos(string msje) {
+
+	int x;
+
+	do {
+		cout << msje;
+		cin >> x;
+	} while (x < 1);
+
+	return x;
+
+}
+
+char ingresarOpcion() {
+
+	char op;
+
+	do {
+
+
+		cout << "Ingrese el tipo de grafico que desea ver: ";
+		cin >> op;
+		op = toupper(op);
+	} while (op != 'P' && op != 'E');
+
+	return op;
+
+}
+
+void graficar(int x) {
+
+	for (int i = 0; i < x / 10; i++) {
+		cout << "*";
+	}
+	cout << endl;
+
+}
+
+int main() {
+
+	int l, c, p, total;
+	int edad1, edad2, edad3, edad4;
+	char opcion;
+	int totalareas, totaledades;
+
+
+	l = ingresarDatos("Ingrese el numero de pacientes infectados en Lima: ");
+	c = ingresarDatos("Ingrese el numero de pacientes infectados en Callao: ");
+	p = ingresarDatos("Ingrese el numero de pacientes infectados en provincias: ");
+	edad1 = ingresarDatos("Ingrese la cantidad de pacientes entre 1 y 30 años: ");
+	edad2 = ingresarDatos("Ingrese la cantidad de pacientes entre 31 y 50 años: ");
+	edad3 = ingresarDatos("Ingrese la cantidad de pacientes entre 51 y 70 años: ");
+	edad4 = ingresarDatos("Ingrese la cantidad de pacientes de 70: ");
+	opcion = ingresarOpcion();
+
+	totalareas = l + c + p;
+	totaledades = edad1 + edad2 + edad3 + edad4;
+
+	switch (opcion)
+	{
+	case 'P':
+		cout << "LOCALIZACION" << endl;
+		if (l > c && c > p) {
+			cout << "Lima      ";
+			graficar(l);
+			cout << "Callao    ";
+			graficar(c);
+			cout << "Provincia ";
+			graficar(p);
+			cout << "TOTAL     ";
+			graficar(totalareas);
+		}else
+			if (c > l && l > p) {
+				cout << "Callao   ";
+				graficar(c);
+				cout << "Lima     ";
+				graficar(l);
+				cout << "Provincia";
+				graficar(p);
+				cout << "TOTAL    ";
+				graficar(totalareas);
+			}else
+				if (p > c && c > l) {
+					cout << "Provincia ";
+					graficar(p);
+					cout << "Callao    ";
+					graficar(c);
+					cout << "Lima      ";
+					graficar(l);
+					cout << "TOTAL     ";
+					graficar(totalareas);
+				}else
+					if (l > p && p > c) {
+						cout << "Lima      ";
+						graficar(l);
+						cout << "Provincia ";
+						graficar(p);
+						cout << "Callao    ";
+						graficar(c);
+						cout << "TOTAL     ";
+						graficar(totalareas);
+					}
+					else
+						if (c > p && p > l) {
+							cout << "Callao    ";
+							graficar(c);
+							cout << "Provincia ";
+							graficar(p);
+							cout << "Lima      ";
+							graficar(l);
+							cout << "TOTAL     ";
+							graficar(totalareas);
+						}
+						else
+							if (p > l && l > c) {
+								cout << "Provincia ";
+								graficar(p);
+								cout << "Lima      ";
+								graficar(l);
+								cout << "Callao    ";
+								graficar(c);
+								cout << "TOTAL     ";
+								graficar(totalareas);
+							}break;
+	case'E':
+		cout << "RANGO" << endl;
+		if (edad2 > edad3 && edad3 > edad4 && edad4 > edad1) {
+			cout << "E2[31-50]    ";
+			graficar(edad2);
+			cout << "E2[51-70]    ";
+			graficar(edad3);
+			cout << "E2[71-mas]   ";
+			graficar(edad4);
+			cout << "E2[01-30]    ";
+			graficar(edad1);
+			cout << "TOTAL        ";
+			graficar(totaledades);
+			
+
+		}
+	}
+
+
+	system("pause");
+	return 0;
+}
